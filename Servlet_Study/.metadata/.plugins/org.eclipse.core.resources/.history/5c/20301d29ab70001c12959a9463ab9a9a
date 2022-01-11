@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ page import ="model.vo.ContentVO,java.util.ArrayList" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<style>
+      td{
+         border-bottom:1px dotted green;
+      }
+      tr:hover{
+         background-color:pink;
+         font-weight:bold;
+      }
+      td:nth-child(3){
+         width:400px;
+      }
+   </style>
+
+<% 
+	ArrayList<ContentVO> list =(ArrayList<ContentVO>)session.getAttribute("forumlist");
+   if(list !=null){
+%> 
+
+<h2>게시판 글 리스트</h2>
+<table>
+	<tr>
+	<td>회사명</td>
+	<td>한줄평</td>
+	<td>작성시간</td>
+	<td>조회수</td>
+	
+	</tr>
+</table>
+<table>
+   <%
+   for(ContentVO vo:list){
+   %>
+      <tr>
+      <td><%= vo.getCon_company() %></td>
+      <td><a href = "/bbs/content/?writer=<%=vo.getCon_writer()%>&action=read"><%= vo.getCon_title() %></a></td>
+      <td><%= vo.getCon_date() %></td>
+      <td><%= vo.getCon_cnt() %></td>
+      <td><a href="/bbs/content?writer=<%=vo.getCon_writer()%>&action=delete">
+         삭제하기</a>
+      </td>
+      <td>
+         <a href="/bbs/content?writer=<%=vo.getCon_writer()%>&action=update">
+         수정</a>
+      </td>
+      </tr>
+   <%} %>
+  </table>
+   <%}else{ %>
+      <h2>${msg}</h2>
+   <%
+   }
+   %>
+   <%--search 관련 버튼 만들기 --%>
+   <a href="/bbs/htmlsrc/contentMain.html">방명록 홈 화면으로 가기</a>
+   </body>
+
+</html>

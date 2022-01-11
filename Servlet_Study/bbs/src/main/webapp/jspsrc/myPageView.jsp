@@ -1,0 +1,243 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ <%@ page import = "model.vo.*, java.util.ArrayList" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Responsive Navigation Bar</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css">
+	<link rel="stylesheet" href = "<%= request.getContextPath() %>/css/common.css">
+	<link rel="stylesheet" href = "<%= request.getContextPath() %>/css/forum2.css">
+	<link rel="stylesheet" href = "<%= request.getContextPath() %>/css/text2.css">
+	<link rel="stylesheet" href = "<%= request.getContextPath() %>/css/search.css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	
+<div class="wrapper">
+	<div class="navbar">
+		<div class="inner_navbar">
+				<div class="logo">
+				<a href="#">BL<span>IND</span></a>
+					<%
+				String name = "Guest";
+				boolean islogin = false;
+				int isadmin = 0;
+				MemberVO vo = (MemberVO)session.getAttribute("logininfo") ;
+				if(vo == null){
+					name = "Guest";
+				}else{
+					name = vo.getMem_name();
+					islogin = true;
+					if(vo.getMem_isadmin() == 1){
+						isadmin = 1;
+					}
+				}
+				%>
+				<p><%=name %>님 안녕하세요!</p>
+			</div>
+			<div class="menu">
+				<ul>
+					<li><a href="<%= request.getContextPath() %>/jspsrc/homeView.jsp" >Home</a></li>
+              		<li><a href="<%= request.getContextPath() %>/jspsrc/aboutUsView.jsp">About Us</a></li>
+           	  		<li><a href="<%= request.getContextPath() %>/content?action=getalllist">Forum</a></li>
+					<li><a href="#" class = "active">My Page</a></li>
+					<li>              
+			  <%
+              		if(islogin){%>
+              			<a href="/bbs/memberset?action=logout">Logout</a>
+              <% 	}else{ %>
+              			<a href="<%= request.getContextPath() %>/jspsrc/loginView.jsp">Login</a>
+            	  	
+              <%  }
+              %>
+            	</li>
+				</ul>
+			</div>
+		</div>
+		<div class="hamburger">
+			<i class="fas fa-bars"></i>
+		</div>
+			<div class="s003">
+				<form method = "get" action ="/bbs/content" id = "searc">
+				        <div class="inner-form">
+				          <div class="input-field first-wrap">
+				            <div class="input-select">
+				              <select data-trigger="" name="sername">
+				                <option placeholder="">검색 필터</option>
+				                <option value="회사명">회사명검색</option>
+				                <option value="한줄평">한줄평검색</option>
+				                <option value="장단점">내용검색</option>
+				              </select>
+				            </div>
+				          </div>
+				          <div class="input-field second-wrap">
+				            <input id="search" type="search" name = "keyword" placeholder="검색어를 입력하세요!" />
+				          </div>
+				          <div class="input-field third-wrap" >
+				           <button class="btn-search" type="button|submit">
+				              <svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
+				                <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+				              </svg>
+				            </button>
+				          </div>
+				        </div>
+				      </form>
+				  </div>
+	</div>	
+	<div class="limiter" >
+		<div class="container-table100">
+				<div class="wrap-table100">
+					<div class="table100">
+						
+				<% 
+					ArrayList<ContentVO> list =(ArrayList<ContentVO>)session.getAttribute("forumlist");
+				   if(list !=null){
+				%> 
+				<table>
+					<thead>
+						<tr class="table100-head">
+							<th class="column1">회사명</th>
+							<th class="column2">한줄평</th>
+							<th class="column3">작성시간</th>
+							<th class="column4">조회수</th>
+						</tr>
+					</thead>
+				<tbody>
+					<%for(ContentVO cvo:list){%>
+				  <tr class = tble>
+				      <td class="column1"><%= cvo.getCon_company() %></td>
+              		  <td class="column2"><a href = "/bbs/content?num=<%=cvo.getNum()%>&action=read"><%= cvo.getCon_title() %></a></td>
+				      <td class="column3"><%= cvo.getCon_date() %></td>
+				      <td class="column4"><%= cvo.getCon_cnt() %></td>
+				   </tr>
+				   <%} %>
+				 
+				  </tbody>
+			   </table>
+			    <div class = "paging">
+			   	<nav>
+					<ul class="pagination pagination-seperated "></ul>
+				</nav>
+			   </div>
+				   <%}else{ %>
+				      <h2>${msg}</h2>
+				   <%
+				   }
+				   %> 
+
+					<%
+              		if(islogin){%>
+              	   <div class="container-contact100-form-btn" >
+						<input class="contact100-form-btn" type = "submit" name = "action" value="write"  onclick="location.href='<%= request.getContextPath() %>/jspsrc/writeView.jsp'" >
+						<%if(isadmin == 1){%>
+						<input class="contact100-form-btn" type = "submit" value="파일 내보내기" onclick="location.href='<%= request.getContextPath() %>/memberset?action=getallmemlist'">
+              			<% 	}%>
+
+					</div>
+              <% 	}%>
+              
+
+				</div>
+			</div>
+				
+		</div>
+	
+	</div>
+</div>
+	
+<script src="js/extention/choices.js"></script>
+<script src="<%= request.getContextPath() %>/js/main.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+<script>
+const choices = new Choices('[data-trigger]',
+	      {
+	        searchEnabled: false,
+	        itemSelectText: '',
+	      });
+	      
+	     
+function pagination() {
+	var req_num_row = 10; 
+	var $tr = jQuery('.tble'); 
+	var total_num_row = $tr.length;
+	var num_pages = 0;
+	if (total_num_row % req_num_row == 0) {
+		num_pages = total_num_row / req_num_row;
+	}
+	if (total_num_row % req_num_row >= 1) {
+		num_pages = total_num_row / req_num_row;
+		num_pages++;
+		num_pages = Math.floor(num_pages++);
+	}
+
+
+
+	for (var i = 1; i <= num_pages; i++) {
+		jQuery('.pagination').append('<li class="page-item "><a class="page-link" href="#">' + i + '</a></li>');
+		jQuery('.pagination li:nth-child(2)').addClass("active");
+		jQuery('.pagination a').addClass("pagination-link");
+	}
+
+
+	$tr.each(function(i) {
+		jQuery(this).hide();
+		if (i + 1 <= req_num_row) {
+			$tr.eq(i).show();
+		}
+	});
+
+	jQuery('.pagination a').click('.pagination-link', function(e) {
+		e.preventDefault();
+		$tr.hide();
+		var page = jQuery(this).text();
+		var temp = page - 1;
+		var start = temp * req_num_row;
+		var current_link = temp;
+
+		jQuery('.pagination li').removeClass("active");
+		jQuery(this).parent().addClass("active");
+
+		for (var i = 0; i < req_num_row; i++) {
+			$tr.eq(start + i).show();
+		}
+
+		if (temp >= 1) {
+			jQuery('.pagination li:first-child').removeClass("disabled");
+		} else {
+			jQuery('.pagination li:first-child').addClass("disabled");
+		}
+
+	});
+
+	jQuery('.prev').click(function(e) {
+		e.preventDefault();
+		jQuery('.pagination li:first-child').removeClass("active");
+	});
+
+	jQuery('.next').click(function(e) {
+		e.preventDefault();
+		jQuery('.pagination li:last-child').removeClass("active");
+	});
+
+}
+
+jQuery('document').ready(function() {
+	pagination();
+
+	jQuery('.pagination li:first-child').addClass("disabled");
+
+});
+
+</script>
+	
+</body>
+</html>

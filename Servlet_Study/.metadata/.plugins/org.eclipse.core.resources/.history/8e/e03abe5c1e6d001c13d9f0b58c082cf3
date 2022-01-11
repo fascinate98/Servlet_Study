@@ -1,0 +1,9 @@
+package vo;
+
+public class ProductVO {
+	
+	private int apple;
+	private int banana;
+	private int hanrabong;
+	
+}

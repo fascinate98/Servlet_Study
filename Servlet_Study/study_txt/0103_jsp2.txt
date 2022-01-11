@@ -1,0 +1,226 @@
+01/03 
+아 조려 시발 
+
+ascii코드체계= 1바이트 체계, 영문대소문자, 숫자(0~9), 특수문자(눈에 보이는거/눈에안보이는거)
+	 0x00~0x7f
+1970~1980 중반 - ascii, 각 컴퓨터 제조사마다 고유 한글코드가 존재햇음(비표준화)
+1987 - 완성형 한글 표준 코드 발표 - ksc5601
+			----->euc-kr, ms949, cp949(윈도우 운영채제) 외국에선 이렇게 부름/다같은거임
+ 			     // 영어 1바이트(아스키 그대로), 한글 - 2바이트 
+1990 - 지구상의 모든 각 나라 언어들의 코드값을 단일화(통일) 시키자. : 
+			------> 유니코드 
+			 	UTF-16 : 모든 문자들이 2바이트 (자바가 채택. 자바에선느 영,한 다 2바이트. c에서는 다름)
+				utf-8 : 1~4바이트. (한글 3바이트) 쿼리문자 post올때 utf-8로 set character incoding해줘야
+
+
+<% %> 스크립트릿(수행문) 태그 실행될때마다. if같은거 자바는 다 이거로 묶
+<%! %> 서블릿으로 변할때 서블릿의 멤버가 된다. 호출이 대어야 실행댐 
+<%= %> 표현식 식만 올수 이따. 출력하고싶은 식만. 
+
+액션태그 
+<jsp:include page=”…” /> 
+<jsp:forward page=”…” /> 다른 jsp한테 요청 처리 
+<jsp:plugin …….. /> : 애플릿 수행결과 
+<jsp:param name=”…” value=”…” /> forward, include시 다른 jsp한테 줄 파라미터 
+
+지시자 태그 -JSP 를 Servlet 으로 변환할 때 지시하고자 하는 내용을 정의하는 태그이다.
+커스텀태그 : 직접 태그 만들수 잇음 - 안함
+- page 지시자 : jsp를 서브릿으로 변환할때 속성에 값을 하당해서 지정
+<%@page {attr = value ..} %>
+- include 지시자 : 다른 jsp를 포함시켜서 같이 서블릿으로 변경하겠따
+<%@include {attr = value ..} %>
+
+
+- page 지시자 태그
+//이거 친거 중요
+<%@ page [ language="java" ]
+[ extends="package.class" ]
+[ import="{package.class | package.*}, ..." ] //
+[ session="true|false" ] //
+[ buffer="none|8kb|sizekb" ]
+[ autoFlush="true|false" ]
+[ isThreadSafe="true|false" ]
+[ info="text" ]
+[ errorPage="relativeURL" ] //
+[ contentType="mimeType [ ; charset=characterSet ]" | //
+ "text/html ; charset=ISO-8859-1" ]  //이거 아스키
+[ isErrorPage="true|false" ] //
+[ pageEncoding="characterSet | ISO-8859-1" ] //
+[ isELIgnored="true|false"]
+%>
+
+- include 지시자 태그
+코드 중복 막기 위해 / 소스관리 편하게 하기위해/ 공통으로 들어간는 html같은거 
+독립된 파일로 만들어서 포함.  -> 이렇게 포함해서만 쓸거면 jspf로 확장자. < 권장임.필수ㄴ jsp구문에 위배대면 안댐.
+
+
+- JSP의 내장 객체
+
+request - http.HttpServletRequest / 클라이언트에서 전송되는 다양한 요청 데이터 추출
+response - http.HttpServletResponse / 응답 시 필요한 기능을 제공
+session - http.HttpSession / 클라이언트 별로 생성되는 HttpSession 객체
+application - ServletContext / application scope 객체 생성과 관리
+out - jsp.JspWriter / 응답용 출력 스트림 // 전용 출력 객체 응답하는 역할에 초점을 맞춤. 서블릿으 ㄴ업슴 
+
+get이랑 post 구분 안함. 구분하고시프면 if(request.getMethod().equals("GET") 이거 < 꼭대문자랑비교 
+
+<a href="<%= request.getHeader("referer") %>"> 입력 화면으로 </a> 돌아가기
+
+
+<script>
+				document.body.style.backgroundColor =
+					         '<%= request.getParameter("fcolor")%>';
+			</script>
+
+<%= 여기는 서버에서 실행되는거 %>
+<script> 여기는 브라우저에서 실행되는거. 
+자바스크립트 태그 안에서도 <%= 이런거 쓸수잇음 어디서든 쓸수잇음 서버에서 실행되고 값만 오늑너라서
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"   errorPage="errorPage.jsp"  %> 
+맨위에 이거 쓰면 에러날때 저페이지로 넘어감
+
+<%@ page isErrorPage="true" %>
+페이지 다음에
+에러페이지에다가 맨위에 이거 씀
+	exception.printStackTrace();
+그러면 이거 쓸수잇어
+
+
+<%@  include  file="part2.jspf"  %>
+인클루드 이렇게 하면 댐 
+
+
+part2.jspf
+<%@  page pageEncoding="UTF-8"  %>
+<% int num = 1000; %>
+<div>
+part2.jspf 의 내용  - 1000 * 2 의 연산 결과 : <%= num * 2 %>
+</div>
+
+이러케 짬
+
+
+ <jsp:forward page="admin_new.jsp">
+  	<jsp:param name="message" value="Hi! Administrator" />  //종료태그 없이 씀 닫는 꺽쇠괄호 앞에/씀 
+  </jsp:forward>
+admin_new.jsp 얘한테 보낼때 파람 넣음 
+
+jsp의 액션태그 구문은 xml을 기반으로 함 
+- 대소문자 구분
+- 종료태그가 없는 경우에는 시작태그명 뒤에 /를 붙혀야함 
+- 속성에 값을 할당할때 인용부호(".')를 반드시 붙힌다.
+
+컨탠츠가 없는 태그 : 엠티태그 
+
+include 지시자 -> 포함시켜서 서블릿 하나로 만드는거 (소스를 포함), 
+include 액션태그 -> 서블릿 두개만들어짐. 실행하다가 멈추고 다른애 실행시켜서 결과 포함 (따로 실행시키고 결과만 포함)
+
+
+
+
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.Date"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JSP의 내장 객체들</title>
+</head>
+<body>
+
+<h2>JSP의 내장 객체들 점검</h2>
+
+<h3>[ request ]</h3>
+getMethod() : <%=  request.getMethod()  %><br>
+getRequestURI() : <%=  request.getRequestURI()  %><br>
+getHeader("user-agent") : <%=  request.getHeader("user-agent")  %><br> :: 요청헤더에 담겨져서 오는 정보 중 하나인데
+모바일인지 어떤종류인지 파악할수 잇게 해줌 
+리케스트 갯파라미터도이슴 
+
+<h3>[ out ]</h3>
+<% out.print("<h4>out내장 객체로 출력!!</h4>"); %> :: 이거 안쓰고 할수도 이씀 
+
+<h3>[ session ]</h3>
+getId() : <%=  session.getId()  %><br>
+getCreationTime() : <%=  new Date(session.getCreationTime())  %><br>
+사용하든 안하든 자동으로 생성됨.
+
+
+<h3>[ response ]</h3>
+getStatus() : <%=  response.getStatus() %><br> :: 응답코드 요청성공(200..)
+getBufferSize() : <%=  response.getBufferSize() %><br> :: 보통 8kb정도 (한번에 보내지는 최고 크기.)
+getContentType() : <%=  response.getContentType() %> :: 
+쿠키저장 유효시간 안정해서 브라우저 끄면 업서짐
+<% response.addCookie(new Cookie("myCookie", "myValue")); %>
+<!-- send redirect -->
+
+<h3>[ application ]</h3>  :: 톰캣은 웹프로젝트를 서블릿컨텍스트라고 앎.
+getContextPath() : <%=  application.getContextPath()  %><br>  : /edu 나옴
+getServerInfo() : <%=  application.getServerInfo()  %><br> / 서버 정보
+getMajorVersion() : <%=  application.getMajorVersion()  %><br> / 서블릿 버전
+
+<H4>Web Application(/edu) 디렉토리의 파일 리스트 </H4>
+<% 
+java.util.Set<String> list = application.getResourcePaths("/");
+if (list != null) {
+   Object obj[] = list.toArray();
+   for(int i=0; i < obj.length; i++) {
+      out.print(obj[i]+", ");
+   }
+}
+%>
+</body>
+</html>
+
+
+.
+
+선언문 : 서블릿으로 바뀌면서 멤버가 된다
+일반 텍스트 : out.print에 argument로 들어감
+out.write 
+  out.write("	<li>멤버변수 : ");
+  out.print( member_v );
+<%> 이거는 멀라 그냥 추가대나보지
+
+서블릿으로 바뀌면서 머 어케저케 들어감 
+서블릿으로 변환하는애 : 카탈리나 
+
+로그인은 post로 무조건 구현해야함 
+  session.setMaxInactiveInterval(60); << 초시간임. 60초 잇으면 로그아웃댐. s
+session.invelitate
+
+ 		session.removeAttribute("member_id");
+ 		session.removeAttribute("member_passwd");
+지움 
+
+
+
+
+
+
+회원형 게시판 
+큐엔에이
+as개시판
+무슨게시판이든간에 게시판
++알파로 더 구현 = 가산점
+회원가입 있어야함
+로그인 로그아웃
+게시판 기능
+mvc패턴으로 응답은 jsp 요청은 서블릿으로 무조건 해야함
+
+bean : java 클래스 만든거도 가지고 ㅇ올수잇는데 ㅇ빈이라고함
+-> 반드시 패키지화대어잇어야 함. 
+-> 가급적이면 defalut생성자 갖고있어야 함. 
+-> getter메서드 잇어야함. setter도 잇어야함. .-> 
+
+<jsp:useBean id="obj" class="jspbean.Today" /> 이렇게 할수잇음.  클래스 생성하는거고 기본생성자 호출임.
+<jsp:getProperty name="obj"  property="year" />년 
+<jsp:getProperty name="obj"  property="month" />월 
+<jsp:getProperty name="obj"  property="date" />일  이거게터 호출하는거임 getter 호출
+
+
+

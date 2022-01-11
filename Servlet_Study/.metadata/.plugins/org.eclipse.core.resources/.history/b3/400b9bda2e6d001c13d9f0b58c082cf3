@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+img{
+	width : 200px;
+
+}
+
+
+
+</style>
+<body>
+<h1>연산할 두 개의 숫자를 입력하고 연산자를 선택하시오.</h1>
+
+<hr>
+	
+	<input type="number" name= "num" ">
+	<select name="pets" id="pet-select">
+			<option value= "+">
+			<option value= "-">
+			<option value= "*">
+			<option value= "/">			
+		</datalist>
+		<input type="number" name= "num" ">
+</body>
+</html>
+
+

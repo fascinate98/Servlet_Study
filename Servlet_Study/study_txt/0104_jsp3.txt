@@ -1,0 +1,200 @@
+<% Today obj = new Today(); %>
+패키지화가되어있어야 이렇게 쓸 수 있음 
+멤버변수 선언과 메서드 정의는선언문태그에서 해야함.
+
+<jsp:useBean id="obj" class="jspbean.Today" />  
+<jsp:getProperty name="obj"  property="year" />년 
+<jsp:getProperty name="obj"  property="month" />월 
+<jsp:getProperty name="obj"  property="date" />일
+jsp에서 액션태그로 자바 클래스 사용하는 예
+
+
+
+<jsp:useBean id=”…” class=”…” scope=”…” />  ->클래스를 사용하겠다 , 객체를 id에 저장하겠다. 하나만 가능함.
+스코프 : jsp가 수행하는 동안에만 유효함 
+scope속성이 생략되면 기본값은 page이다. -> 주어진 javabean클래스를 무조건 생성함.
+어떻게주느냐에 따라서 무조건 생성이 아닌 찾아보고 없의면 생성한다 이런거 넣을 수 잇다.
+
+유즈빈: 객체를 찾아오거나 생성하겠다. id 속성값에 의해 객체명 정함 
+
+<jsp:setProperty name=”…” property=”…” />
+사용 가능한 상태로 만든 javabean 객체에 대하여 setter를 호출하고 값을 설정하는 역할을 한다.
+name속성: usebean 태그 id값을 준다. 
+property : get을 뺸 나머지를 첫글자만 소문자로 바꿔서 지정하고 나머지는 그대로.
+
+public int getHour() {
+		return hour;
+	}
+
+이거면 hour << 이렇게   
+
+<jsp:getProperty name=”…” property=”…” />
+getter만 호출함. getter를 써서 리턴된 결과를 출력함
+
+거의 get만 함. mvc패턴에선 ㅇㅅㅇ 
+
+<%
+pageContext.setAttribute("obj", new Today());  객체를 만들어서 저장하는거. 
+getAtt
+removeAtt
+%>
+${obj.year}년   <  obj라는 이름으로 저장된 객체를 찾는거. el에서의 변수는 우리가 알고잇는 변수가 아니라el은 el만의 구문을 갖고있아. 일반변수가 아니고 어떤 객체를 어딘가에 저장한 이름이다. 이게 변수잖아 씨발 ;  어떤 스코프 영역에 있는 객체 안에서
+꺼내기위한 이름으로 쓰인다. 
+
+${obj.month}월 
+${obj.date}일
+
+페이지스코프: 객체생성해서 변수에 저장하는거 
+리퀘스트스코프
+어플리케이션스코프
+
+어떤 서블릿을 요청하든 공유할 수 있다. 
+
+
+
+******************
+객체공유 : 수행하면서 만든 내뇽응 객체에 담아서 다른애가 그걸 읽어서 처리하게끔 하는거 
+
+page scope 요청된 서블릿, 요청된 jsp가 사용하는거. 공유한다고 볼수없다. 그 서블릿 안에서만 쓰는거
+ 공유 x 나혼자 쓸거야 . 객체생성해서 지역변수에 담으면 됨. page context에 보관하면 됨.; 혹은 usebean
+쓰면서 스코프 속성 생각하면 됨. 
+저위에 세가지 방법 다쓸수있음. el에서 쓰고싶으면 그냥 p기본값page들어가게 스코프 ㅇㅇ
+
+
+request scope : 요청이 끝날떄까지 공유하는거. 다른 서블릿이나 제스피한테 (다른자원한테 공유)
+요청이 끝나면ㅅ 사라짐
+객체 저장한다음에 jsp가 꺼내가게하면 됨, 
+객체생성해서 http servletrequest객체에 객체보관하면 됨.
+Request Scope ->  HttpServletRequest 객체에 객체를 보관한다.
+그대신 요청이 끝나면 사라짐. 
+include나 foward관계에 있는 경우에만 ㅇㅇ
+redirect는 안댐 다시 오니까 
+
+
+session scope 브라우저가 사라있는 동안 새션게ㅐㄱ채가 사라지기 전까지 공유. 일정시간동안. 
+최대가 브라우저가 살아있는 동안. 다시 요청했을때 살아있음
+클라이언트별로 객체 저장하고싶다: 세션
+Session Scope ->  HttpSession 객체에 객체를 보관한다
+
+
+
+application scope 서버가 죽을때까지 유효하는 객체. 로그처리기능., 사이트 운영 내내 항상
+필요한 객체가 있는데 그런거 쓸떄 씀. 하나만 생성해서 모든곳에서 공유하고싶으면 이거 
+지금까지 몇명 방문..  
+Application Scope ->  ServletContext 객체에 객체를 보관한다.
+
+
+이 세개를 컨테이너객체라고도 함. 모두 객체를 저장, 추출, 삭제하는 메서드를 공통적으로
+다갖고있다.
+public void setAttribute(String key, Object value)
+public Object getAttribute(String key)
+public void removeAttribute(String key)
+
+
+서블릿 컨텍스트는 was가 기동될때 만들어진다. edu를 위한 서블릿 컨텍스트 개ㅔㄱ체 하나만들어짐.
+윂프로젝이 여러개 등록되어잇다 ? -> 각각 하나씩 만들어짐 서버가 기동될떄마다.
+relodad되면다시생성됨. 서버가 죽을떄까지 유지된다.
+
+page
+Servlet 또는 JSP가
+처리되는 동안 생
+성된 JSP에서만 사용
+
+request
+요청이 처리되는 동안
+forward, Include되는
+다른 자원과 공유
+request.setAttribute("objreq", vo);
+
+session
+Session이 유지
+되는 동안 여러
+자원간에 공유
+재 요청 시 계속
+사용 가능
+HttpSession session = request.getSession();
+session.setAttribute("objsession", new CountVO());
+
+application
+Servlet 컨테이너가
+기동되어 있는 동안
+동일한 Web Application
+에 속하는 모든 자원간에
+공유
+ServletContext context = getServletContext();
+context.setAttribute("objapp", new CountVO());
+
+
+********
+vo value object 약어 
+*********
+
+
+
+WEB application = web project
+안에
+web componets static resorsce web applicationdd library
+
+
+
+mvc 패턴: 모델 뷰 컨트롤러
+웹사이트를 개발할때 머ㅗ델 뷰 컨트롤러라는 세개로 나눠서 개발하는 패턴
+클라이언트에서 요청을 해왓을떄 요청을 받아서 요청받은 목적에 맏게
+기능을 수ㅠ행하는거 : 컺트롤러
+컨트롤라 : 간단한거는 혼자 수행. 디비연동같은 값을 처리하거나 서비스 로직이 필요한거는
+모델이라는애가지고 수행하고 그 결과를 가지고 뷰한테 넘겨서 뷰가 대신 응답함.
+
+요청받는애와 응답받는애를 나눠서 개발함. 
+유지보수 좋아짐
+
+요청 : 컨트롤러
+응답 : 뷰
+가운데서 이런저런 기능 : 모델
+
+컨트롤러 : 서블릿
+뷰 ; jsp
+ㅋ컨 뷰 사이에서 이런저런 기능 제공 : 모델: 자바빈...
+
+
+vo : 도메인 모델; 값을 보관하는 용도
+전달하려는 목적. == dto == vo 
+dao = db연동 로직
+
+
+
+
+얘네들 저장할수잇는 멤버변수 선언해야함
+변수명ㅇ 마음대로 
+
+다 문자열타입이면 댐
+foward
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

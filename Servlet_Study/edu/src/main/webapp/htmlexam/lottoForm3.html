@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.outer{
+	border: 1px solid #000;
+	width : 30%;
+	position : relative;
+	left: 50%;
+	transform : translateX(-50%);
+	padding-left: 50px;
+	padding-right: 50px;
+	overflow : hidden;
+
+}
+
+.content {
+	margin-top: 10px;
+	float : left;
+	display : flex;
+	padding-bottom:20px;
+	overflow : hidden;
+	white-space: nowrap;
+	
+}
+
+
+.content>input {
+	margin-top : 10px;
+	vertical-align: middle;
+	height : 30px;
+}
+
+
+</style>
+</head>
+<body>
+	<div class = "outer">
+				<div class = "title">
+				<span style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">
+					<h1 style= "color:#ffd4e1; font-family:Malgun Gothic">로또 번호를 맞춰보세요</h1>
+				</span>
+					
+			    	<hr>
+				</div>
+				<form class =  "inner" method="get" action="http://192.168.0.12:8080/edu/lotto3">
+			    <div class = "content">
+				    <p style = "height : 30px;">1부터 6까지의 숫자를 입력 하세요 : &nbsp; </p>
+				    <input type="number" name= "num" style = "margin-left : 30px; margin-right : 20px;">
+				    <input type = "image" src = "/edu/images/clover.png" class = "clover" >
+			    </div>
+			    
+			</form>
+	</div>
+</body>
+</html>

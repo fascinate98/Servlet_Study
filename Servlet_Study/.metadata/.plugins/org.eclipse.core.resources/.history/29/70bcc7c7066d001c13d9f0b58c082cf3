@@ -1,0 +1,9 @@
+package vo;
+
+public class MemberVO {
+	
+	private String memName;
+	private String memPhone;
+	private String memId;
+	private String memPw;
+}

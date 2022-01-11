@@ -1,0 +1,82 @@
+package model.vo;
+
+public class ContentVO {
+	
+	private int con_writer;
+	private String con_title;
+	private String con_advan;
+	private String con_disadvan;
+	private String con_date;
+	private int con_star;
+	private String con_file;
+	private int con_cnt;
+	private String con_company;
+	private int num;
+	
+	
+	
+	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public String getCon_company() {
+		return con_company;
+	}
+	public void setCon_company(String con_company) {
+		this.con_company = con_company;
+	}
+	public int getCon_writer() {
+		return con_writer;
+	}
+	public void setCon_writer(int con_writer) {
+		this.con_writer = con_writer;
+	}
+	public String getCon_title() {
+		return con_title;
+	}
+	public void setCon_title(String con_title) {
+		this.con_title = con_title;
+	}
+	public String getCon_advan() {
+		return con_advan;
+	}
+	public void setCon_advan(String con_advan) {
+		this.con_advan = con_advan;
+	}
+	public String getCon_disadvan() {
+		return con_disadvan;
+	}
+	public void setCon_disadvan(String con_disadvan) {
+		this.con_disadvan = con_disadvan;
+	}
+	public String getCon_date() {
+		return con_date;
+	}
+	public void setCon_date(String con_date) {
+		this.con_date = con_date;
+	}
+	public int getCon_star() {
+		return con_star;
+	}
+	public void setCon_star(int con_star) {
+		this.con_star = con_star;
+	}
+	public String getCon_file() {
+		return con_file;
+	}
+	public void setCon_file(String con_file) {
+		this.con_file = con_file;
+	}
+	public int getCon_cnt() {
+		return con_cnt;
+	}
+	public void setCon_cnt() {
+		this.con_cnt = con_cnt;
+	}
+	
+	
+
+}

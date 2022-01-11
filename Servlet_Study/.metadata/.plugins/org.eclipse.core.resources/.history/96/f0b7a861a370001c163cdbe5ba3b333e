@@ -1,0 +1,103 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ <%@ page import = "model.vo.*, java.util.ArrayList" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Responsive Navigation Bar</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css">
+	<link rel="stylesheet" href = "<%= request.getContextPath() %>/css/common.css">
+	<link rel="stylesheet" href = "<%= request.getContextPath() %>/css/forum2.css">
+</head>
+<body>
+	
+<div class="wrapper">
+	<div class="navbar">
+		<div class="inner_navbar">
+				<div class="logo">
+				<a href="#">BL<span>IND</span></a>
+				<p>Guest님 안녕하세요!</p>
+			</div>
+			<div class="menu">
+				<ul>
+					<li><a href="<%= request.getContextPath() %>/jspsrc/homeView.jsp" >Home</a></li>
+              		<li><a href="<%= request.getContextPath() %>/jspsrc/aboutUsView.jsp">About Us</a></li>
+           	  		<li><a href="#" class = "active">Forum</a></li>
+					<li><a href="<%= request.getContextPath() %>/jspsrc/myPageView.jsp">My Page</a></li>
+					<li>              
+			  <a href="<%= request.getContextPath() %>/jspsrc/loginView.jsp">Login</a>
+            	</li>
+				</ul>
+			</div>
+		</div>
+		<div class="hamburger">
+			<i class="fas fa-bars"></i>
+		</div>
+
+	</div>	<div class="limiter" >
+		<div class="container-table100">
+				<div class="wrap-table100">
+					<div class="table100">
+						
+					<% 
+					ArrayList<ContentVO> list =(ArrayList<ContentVO>)session.getAttribute("forumlist");
+				   if(list !=null){
+				%> 
+				<table>
+					<thead>
+						<tr class="table100-head">
+							<th class="column1">회사명</th>
+							<th class="column2">한줄평</th>
+							<th class="column3">작성시간</th>
+							<th class="column4">조회수</th>
+						</tr>
+					</thead>
+					
+
+				<tbody>
+					<%for(ContentVO cvo:list){%>
+				   <tr>
+				      <td class="column1"><%= cvo.getCon_company() %></td>
+              		  <td class="column2"><%= cvo.getCon_title() %></a></td>
+				      <td class="column3"><%= cvo.getCon_date() %></td>
+				      <td class="column4"><%= cvo.getCon_cnt() %></td>
+				   </tr>
+				   <%} %>
+				 
+				  </tbody>
+			   </table>
+				   <%}else{ %>
+				      <h2>${msg}</h2>
+				   <%
+				   }
+				   %>
+					</div>
+				</div>
+			
+			 <form method = "get" action ="/bbs/content">
+				<select name = "sername" >
+					<option>선택 하세요</option>
+					<option  value="회사명">회사명</option>
+					<option value="한줄평">한줄평검색</option>
+					<option value="장단점">장단점검색</option>
+				<input type = "search" name = "keyword" >
+				</select>
+				<br>
+				<input type = "submit" value = "검색">
+				<hr>	
+				</form>			
+			</div>
+				
+		</div>
+	
+	</div>
+
+
+	<script src="<%= request.getContextPath() %>js/main.js"></script>
+</body>
+</html>

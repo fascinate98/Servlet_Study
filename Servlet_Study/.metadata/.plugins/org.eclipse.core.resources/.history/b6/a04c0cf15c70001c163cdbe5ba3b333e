@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>글을 남겨주세요.게시판</h2>
+<hr>
+	<form method="post" action="/bbs/content">
+		<br>
+		이름 : <input type="text" name="company" required placeholder="회사명입력"><br>
+		남기고자 하는 의견 : <br>
+		<textarea rows="10" cols="35"name="title"></textarea>
+		<textarea rows="10" cols="35"name="advan"></textarea>
+		<textarea rows="10" cols="35"name="disadvan"></textarea>
+		<br> <input type="submit" value="등록"> 
+			<input type="reset"value="재작성">
+	</form>
+
+</body>
+</html>

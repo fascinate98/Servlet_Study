@@ -1,0 +1,29 @@
+package controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import vo.CountVO;
+
+public class VisitorDBServlet1 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String url = "jdbc:mysql://localhost:3306/sqldb?characterEncoding=UTF-8&serverTimezone=UTC";
+		String user = "root";
+		String passwd = "1234";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (Exception cnfe) {
+			System.out.println("드라이버 오류 발생" + cnfe.getMessage());
+			out.println("<h2>오류발생</h2>");
+			return;
+		} 
+	}
+}

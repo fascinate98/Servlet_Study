@@ -1,0 +1,7 @@
+INDEX VERSION 1.131
+G:\포스코\Servlet_Study\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3891625177.index
+\bbs\src\main\java
+G:\포스코\Servlet_Study\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3838851337.index
+\edu\src\main\java
+G:\포스코\Servlet_Study\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3068016875.index
+\mvc\src\main\java

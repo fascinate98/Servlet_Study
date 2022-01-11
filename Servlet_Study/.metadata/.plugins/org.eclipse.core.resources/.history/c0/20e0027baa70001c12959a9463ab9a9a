@@ -1,0 +1,308 @@
+package model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.vo.ContentVO;
+
+public class ContentDAO implements Content{
+	
+	
+	public ArrayList<ContentVO> listAll(){
+		Connection conn = MySQL.connect();
+		ArrayList<ContentVO> list = null;
+
+		try(Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from content ");){	
+
+			list = new ArrayList<ContentVO>();
+			while(rs.next()) {
+				ContentVO vo = new ContentVO();
+
+				vo = new ContentVO();
+				vo.setCon_disadvan(rs.getString(1));
+				vo.setCon_date(rs.getString(2));
+				vo.setCon_star(rs.getInt(3));
+				vo.setCon_file(rs.getString(4));
+				vo.setCon_company(rs.getString(5));
+				vo.setCon_cnt(rs.getInt(6));
+				vo.setCon_title(rs.getString(7));
+				vo.setNum(rs.getInt(8));
+				vo.setCon_writer(rs.getInt(9));
+				vo.setCon_advan(rs.getString(10));
+				
+				list.add(vo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		MySQL.close(conn);
+		return list;
+	}
+	
+	
+	public ArrayList<ContentVO> getmylist(){
+		Connection conn = MySQL.connect();
+		ArrayList<ContentVO> list = null;
+
+		try(Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from content where writer = " + writer);){	
+
+			list = new ArrayList<ContentVO>();
+			while(rs.next()) {
+				ContentVO vo = new ContentVO();
+
+				vo = new ContentVO();
+				vo.setCon_disadvan(rs.getString(1));
+				vo.setCon_date(rs.getString(2));
+				vo.setCon_star(rs.getInt(3));
+				vo.setCon_file(rs.getString(4));
+				vo.setCon_company(rs.getString(5));
+				vo.setCon_cnt(rs.getInt(6));
+				vo.setCon_title(rs.getString(7));
+				vo.setNum(rs.getInt(8));
+				vo.setCon_writer(rs.getInt(9));
+				vo.setCon_advan(rs.getString(10));
+				
+				list.add(vo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		MySQL.close(conn);
+		return list;
+	}
+		
+	
+	
+	
+	public ContentVO listOne(int writer) {
+		Connection conn = MySQL.connect();
+		ContentVO vo = null;
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+					"select writer, company, title, advan, disadvan , date_format(date, '%Y년 %m월 %d일') date, star, file "
+					+ "from content where writer = " + writer);
+			if (rs.next()) {
+				vo = new ContentVO();
+				vo.setCon_writer(rs.getInt(1));
+				vo.setCon_company(rs.getString(2));
+				vo.setCon_title(rs.getString(3));
+				vo.setCon_advan(rs.getString(4));
+				vo.setCon_disadvan(rs.getString(5));
+				vo.setCon_date(rs.getString(6));
+				vo.setCon_star(rs.getInt(7));
+				vo.setCon_file(rs.getString(8));
+
+
+			}
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+		}
+		MySQL.close(conn);
+		return vo;	
+	}
+	
+	
+	
+
+	
+	// 회사검색
+	public ArrayList<ContentVO> searchCom(String keyword){
+		Connection conn = MySQL.connect();
+		ArrayList<ContentVO> list = null;
+		
+		try (Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select * "
+						+ " from content where company like '%"+keyword + "%'" );){
+			list = new ArrayList<ContentVO>();
+			
+			
+			while(rs.next()) {
+				
+				ContentVO vo = new ContentVO();
+
+				vo = new ContentVO();
+				vo.setCon_disadvan(rs.getString(1));
+				vo.setCon_date(rs.getString(2));
+				vo.setCon_star(rs.getInt(3));
+				vo.setCon_file(rs.getString(4));
+				vo.setCon_company(rs.getString(5));
+				vo.setCon_cnt(rs.getInt(6));
+				vo.setCon_title(rs.getString(7));
+				vo.setNum(rs.getInt(8));
+				vo.setCon_writer(rs.getInt(9));
+				vo.setCon_advan(rs.getString(10));
+				
+
+				list.add(vo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		MySQL.close(conn);
+		return list;
+	}
+	
+	//  한줄평 검색
+		public ArrayList<ContentVO> searchTitle(String keyword){
+			Connection conn = MySQL.connect();
+			ArrayList<ContentVO> list = null;
+			
+			try (Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery("select * "
+							+ " from content where title like '%"+keyword + "%'" );){
+				list = new ArrayList<ContentVO>();
+				
+				
+				while(rs.next()) {
+					
+					ContentVO vo = new ContentVO();
+
+					vo = new ContentVO();
+					vo.setCon_disadvan(rs.getString(1));
+					vo.setCon_date(rs.getString(2));
+					vo.setCon_star(rs.getInt(3));
+					vo.setCon_file(rs.getString(4));
+					vo.setCon_company(rs.getString(5));
+					vo.setCon_cnt(rs.getInt(6));
+					vo.setCon_title(rs.getString(7));
+					vo.setNum(rs.getInt(8));
+					vo.setCon_writer(rs.getInt(9));
+					vo.setCon_advan(rs.getString(10));
+					
+					list.add(vo);
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			MySQL.close(conn);
+			return list;
+		}
+		
+		//장단점 검색
+		public ArrayList<ContentVO> searchPac(String keyword){
+										// Pros and Cons
+			Connection conn = MySQL.connect();
+			ArrayList<ContentVO> list = null;
+			
+			try (Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery("select *  from content where advan like"
+							+ " '%"+keyword + "%' or disadvan like '%"+keyword + "%'" );){
+				list = new ArrayList<ContentVO>();
+				
+				
+				while(rs.next()) {
+					
+					ContentVO vo = new ContentVO();
+
+					vo = new ContentVO();
+					vo.setCon_disadvan(rs.getString(1));
+					vo.setCon_date(rs.getString(2));
+					vo.setCon_star(rs.getInt(3));
+					vo.setCon_file(rs.getString(4));
+					vo.setCon_company(rs.getString(5));
+					vo.setCon_cnt(rs.getInt(6));
+					vo.setCon_title(rs.getString(7));
+					vo.setNum(rs.getInt(8));
+					vo.setCon_writer(rs.getInt(9));
+					vo.setCon_advan(rs.getString(10));
+					
+					list.add(vo);
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			MySQL.close(conn);
+			return list;
+		}
+		
+		
+	public boolean insert(ContentVO vo) {
+		boolean result = true;
+		Connection conn = MySQL.connect();
+		try (PreparedStatement pstmt = conn.prepareStatement(
+				"insert into content (writer, company , title , advan, disadvan , star, file ,date)"
+				+ " values(?,?,?,?, ? ,? ,? ,now())");){
+
+			System.out.println("dvsvdvdsv"+ vo.getCon_star());
+			
+			pstmt.setInt(1, vo.getCon_writer());
+			pstmt.setString(2, vo.getCon_company());
+			pstmt.setString(3, vo.getCon_title());
+			pstmt.setString(4, vo.getCon_advan());
+			pstmt.setString(5, vo.getCon_disadvan());
+			pstmt.setInt(6, vo.getCon_star());
+			pstmt.setString(7, vo.getCon_file());
+			pstmt.executeUpdate();	
+			System.out.println(pstmt);
+		}catch(SQLException e){
+			result = false;
+			e.printStackTrace();
+		}
+		MySQL.close(conn);
+		return result;
+	}
+	
+	public boolean delete(int writer) {
+		boolean result = true;
+		Connection conn = MySQL.connect();
+		try (PreparedStatement pstmt = conn.prepareStatement("delete from content where num = ?");){
+			pstmt.setInt(1,writer);
+			int deleteNum = pstmt.executeUpdate();
+			if(deleteNum != 1)
+				result = false;
+		}catch(SQLException e){
+			result = false;
+			e.printStackTrace();
+		}
+		MySQL.close(conn);
+		return result;
+	}
+	public boolean update(ContentVO vo) {
+		boolean result = true;
+		Connection conn = MySQL.connect();
+		try (PreparedStatement pstmt = conn.prepareStatement("update content set company = ?, title = ?, advan = ?, disadvan = ?, file = ?, star = ? " + 
+						"where num = ?");){ // 날짜는 변경 x
+			pstmt.setString(1, vo.getCon_company());
+			pstmt.setString(2, vo.getCon_title());
+			pstmt.setString(3, vo.getCon_advan());
+			pstmt.setString(4, vo.getCon_disadvan());
+			pstmt.setString(5, vo.getCon_file());
+			pstmt.setInt(6, vo.getCon_star());
+			pstmt.setInt(7, vo.getNum());
+			
+			pstmt.executeUpdate();			
+		}catch(SQLException e){
+			result = false;
+			e.printStackTrace();
+		}
+		MySQL.close(conn);
+		return result;
+	}
+	
+	public boolean updateCnt(int idnum) {
+		boolean result = true;
+		Connection conn = MySQL.connect();
+		try (PreparedStatement pstmt = conn.prepareStatement("update content set cnt = cnt+1 " + 
+						"where num = ?");){ // 날짜는 변경 x
+
+			pstmt.setInt(1, idnum);
+			System.out.println(pstmt);
+			pstmt.executeUpdate();			
+		}catch(SQLException e){
+			result = false;
+			e.printStackTrace();
+		}
+		MySQL.close(conn);
+		return result;
+	}
+
+
+	
+}

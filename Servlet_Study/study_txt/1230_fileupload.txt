@@ -1,0 +1,89 @@
+enctype="multipart/form-data"
+
+파일점부 할떄 폼태그 필수임
+post로 해야함
+
+파일업로드를 처리하는 서블릿을 구현해야함 
+
+@MultipartConfig (location = "c:/Temp/uploadtest")
+
+Part 
+여러개의 파트로 나뉘어서 전송됨
+gettSubmittedfilename() : 파일정보 안담고있으면 널
+
+널이 아니면 
+업로드되는 파일에대한 정볼르 받아옴
+그럼 라이트 
+
+저장경로 : 저 어노테이션 
+@MultipartConfig (location = "c:/Temp/uploadtest")
+
+이름입력 전화바ㅓㄴ호 업로드파일 각각 = 파트갯수
+두개는 일반쿼리 나머지는 업로드파일 
+
+전체파트데이터는 멀티파트/폼-데이터
+저 쪼꼬만 파트는 이미지/데이터 
+아래거 
+
+
+------------------------------------
+========== 요청 받음 =========
+요청 파라미터로 6개의 파트가 전달됨...
+name 값(<form>태그의 name 속성의 값 : myname
+[ 파트만의  헤더 정보 ] 
+content-disposition : form-data; name="myname"
+값(컨텐트) 크기 : 3
+------------------------------------
+name 값(<form>태그의 name 속성의 값 : myphone
+[ 파트만의  헤더 정보 ] 
+content-disposition : form-data; name="myphone"
+값(컨텐트) 크기 : 3
+------------------------------------
+name 값(<form>태그의 name 속성의 값 : myfile
+[ 파트만의  헤더 정보 ] 
+content-disposition : form-data; name="myfile"; filename="1.jpg"
+content-type : image/jpeg
+값(컨텐트) 크기 : 124232
+파일명 : 1.jpg
+------------------------------------
+name 값(<form>태그의 name 속성의 값 : myfile
+[ 파트만의  헤더 정보 ] 
+content-disposition : form-data; name="myfile"; filename="2.jpg"
+content-type : image/jpeg
+값(컨텐트) 크기 : 118223
+파일명 : 2.jpg
+------------------------------------
+name 값(<form>태그의 name 속성의 값 : myfile
+[ 파트만의  헤더 정보 ] 
+content-disposition : form-data; name="myfile"; filename="3.jpg"
+content-type : image/jpeg
+값(컨텐트) 크기 : 63451
+파일명 : 3.jpg
+------------------------------------
+name 값(<form>태그의 name 속성의 값 : myfile
+[ 파트만의  헤더 정보 ] 
+content-disposition : form-data; name="myfile"; filename="4.jpg"
+content-type : image/jpeg
+값(컨텐트) 크기 : 53653
+파일명 : 4.jpg
+------------------------------------
+
+
+
+
+<h1>file 타입의 input 태그 테스트</h1>
+<form  method="post"  action="/edu/upload" 
+               enctype="multipart/form-data" >
+
+요청ㅎ[더에 바운더리 정보 
+---- 어쩌고저쩌고
+
+똑같은거 쭉 나오다가 마지막거는 맨뒤에 -- 붙음. 
+
+
+포워드는 requestDispatcher 객체 사용
+
+
+-------------------
+
+

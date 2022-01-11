@@ -1,0 +1,181 @@
+textarea
+몇행 몇열 댓글남기기 큰 네모 창
+ 
+br : 싱글/ 개행 줄바꿈 개행문자 여러개줘도 띄어쓰기 하나로 인식함. 개행 가운데 한줄 빔
+p태그 : 더블/개행 중간에 빈 행 있어도 개행 안함. 한줄처리 
+
+서블릿 : 웹서버 상에서 수행되는 자바 프로그램. 클래스. 서버사이드 애플릿의 약자. 서버에서 사용되는 애플릿..  
+애플릿 : 웹에서 구현하는 자바프로그램. 클라쪽. 브라우저쪽. 서블릿 형, 자바스크립트 이전 배너화면 개발같은.. 
+자바 : 운영체제에 종속적이지 않아서 획기적이여씀
+
+서블릿 : 램 상주 프로그램. 한번만 메모리에 올라가면 계속 메모리에 있어서 빠름.
+was라는애가 web컨테이너가 해줘서  개발이 쉬웟음. 응답받기까지가 빨랐고 난이도 쉬웟음.
+
+서블릿 등록, 매핑
+@매핑명 넣어주기(@WebServlet("/hello")), web.xml에 디스크립터 파일에 매핑 작성하기.
+
+매핑 이유?
+보안적 이유. 섭를릿 클래스 이름 감춤. 
+실질적 이유 : 애플릿때문. 클라가 파일 요청했을때 파일 확장자 보고 판단. 유알엘 끝에 오는 확장자 보고 어떤 형식 파일 요청햇는지 판단. 자바 실행파일은 .class 브라우저에서 애플릿때매 자바실행환경을 다 내장하고있음. 이미 애플릿이 있어서 자바실행파일 확장자로주면 애플릿이 해버림. 그래서 확장자로 구분할수가 없엇음. 그래서 사용한게 매핑. 등록과 매핑.. 애플릿때문임. 
+
+톰캣 안에 코요태라는 웹서버가있음. 카탈리나라는 서블릿 컨테이너가 있음. 
+톰캣한테 요청하면 톰캣이 먼저 요청확인 uri확인해서 서블릿요청인지 확인. 등록된 매핑정보하고 매칭해봄. 없으면 확장자를 봄. 읽어서 주기만 하면 되면 코요테 선에서 끝남. 서버에서 처리 후 결과를 줘야하는거는 카탈리나한테 넘김. 서브릿이 이미 객체 생성되어잇는지 확인 한 후 잇으면 바로 서비스 호출 서비스메서드한테 아규먼트로 줌 get인지 post인지 확인 후 doget dopost 이런거 실행댐
+만약 객체 생성 안되어 있느 최초 수행요청이면 서블릿 클래스 찾아서 매모리에 로딩하고 객체생성함. 그리고 가장 먼저 호출하는게 init 그다음 service 이 응답이 항상 오는거. 그후에는 계속 service만 요청됨. init은 한번만. 메모리에서 해제될때 : 서버 죽을때.  컨테스트 리로드. 디스트로이 함수 호출
+인잇 서비스 두갯  or 두포스트 디스트로이 세개 순서로 실행 
+누군가에 의해서 : 콜백메서드 
+디스트로이는 사용자요청과 상관없음. 
+
+서블릿객체가 ㅁ모리에서 해제될때 디스트로이
+좀 수정하고 새로저장하면 디스트로이댐 
+
+요청 다시 될때 다시 생성
+
+맨처음에만 할거 : 인잇
+죽기전에 한번만 할거 : 디스트로이
+요청할때마다 할거 : 서비스, 두갯 두포스트  에다가 구현 
+
+프레임워크 : 어느정도 규격화 되어잇음 
+
+인잇 디스트로이 서비스는 무조건 오버라이드 해야하는거 아님
+필요한거 오버라이딩해서 쓰면 됨
+두갯 두포스트 둘다써야하면 걍 서비스 오버라이딩 하는게 나음 
+
+처리하고자 하는 기능에 맞게 이미 구현되어있는거 안에다가 구현해야함
+
+클라 정보, 요청에 대한 답변 쿼리 정보 
+http://localhost:8080/edu/first?name=%EC%9C%BC%EC%95%A0%EC%95%B5
+
+겟방식에 ? 써야함. 약속임. 그후에 전달하고자하는 쿼리문자의 이름. (name=~)
+유알아이?파라미터문자열 
+HttpServletRequest request 객체
+request.getMethod() 요청방식이 담겨잇음
+request.getParameter("name") 이 문자열로 구분 
+
+HttpServletResponse response 응답과 관련된거 
+ response.setContentType("text/html;charset = UTF-8");
+ PrintWriter out = response.getWriter();
+얘네 둘 세트임 같이써야함.  
+
+리더 라이터/ 인풋스트림 라이트스트림
+문자         /    바이너리 (이미지 파일..)
+
+요청 헤더 메세지
+GET /restapi/v1.0 HTTP/1.1
+Accept: application/json
+Authorization: Bearer UExBMDFUMDRQV1MwMnzpdvtYYNWMSJ7CL8h0zM6q6a9ntw
+
+응답헤더 메세지
+HTTP/1.1 200 OK
+Date: Mon, 23 May 2005 22:38:34 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Encoding: UTF-8
+Content-Length: 138
+Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
+Server: Apache/1.3.3.7 (Unix) (Red-Hat/Linux)
+ETag: "3f80f-1b6-3e1cb03b"
+Accept-Ranges: bytes
+Connection: close
+응답바디 메세지
+<html>
+<head>
+  <title>An Example Page</title>
+</head>
+<body>
+  Hello World, this is a very simple HTML document.
+</body>
+</html>
+
+
+응답코드 
+200 성공
+302 니요청 다른애한테 넘김 ㅋㅋ (요청 redirect)
+404 문서 찾을 수 없음. 
+500 서버가 요청 처리하다 에러남. 실행오류. 
+
+
+String p3[] = request.getParameterValues("p3");
+	for(int i=0; i < p3.length; i++)
+			out.print("<li>p3["+i+"] : "+ p3[i] +"</li>");
+		out.print("</ul>");
+
+url에 쿼리 여러개 가변으로 넣을수 잇나보다
+http://localhost:8080/edu/query?p1=3&p2=3&p3=1&p3=5&p3=7
+
+
+
+request.getParameter  리턴값 하나
+request.getParameterValues 리턴값 배열
+
+
+@WebServlet("/querytest") 이거 서로 다른거써야함 
+매핑명 중복되면 죽어버림. 
+
+자바에서 doget오버라이딩 하고있는데 post로 보내면
+405에러남 부모에잇는 dopost가 대신호출됨 걔가 응답하는게 에러 
+-> 자식클래스에 dopost가 오버라이딩 안댓다는 것 
+지원하지 않는다는 것.
+
+메서드 속성 없으면 디폴트는 겟
+브라우저에게 먼가 내보낼때는 out. api사용
+
+하이퍼링크 만들어주는 태그 : a 
+
+hidden태그 : 사용자입력받는게 아니라 강제로 같이 전달되게 하는 용도
+->근데 비밀이래매 유알엘 파람에는 보이넹 
+
+이름 : <input name="stname" value="듀크" required><br>
+value 쓰면 기본으로 써져있음
+required 쓰면 안쓰면 안넘어감. 
+
+우너래는 type = "" 써야대는데 안써도 댐 기본이 텍스트
+
+a태그갖고 하이퍼링크갖고 요청하는거: 갯방식
+겟 특 :  파라미터로 뒤에 따로 폼 안만들어도 가능함 
+
+폼태그 : 사용자가 직접 이름 입력할수 있다
+a태그 : 사용자가 직접 입력할 수 없다. 
+
+<a href="/edu/getpost?name=듀크">하이퍼링크로 요청</a> 이거는 링크고정
+<hr>
+
+
+<form method="get" action="/edu/getpost">
+<input type="text" placeholder="이름을입력하세요" name="name" >
+<input type="submit"  value="GET방식요청">
+</form>
+이거는 안에 내용 바꿀수 있 
+
+<form method="post" action="/edu/getpost">
+<input type="text" placeholder="이름을입력하세요" name="name" >
+<input type="submit"  value="POST방식요청">
+</form>
+포스트 요청방식.  
+
+get방식은 서버에 따라서 쿼리문자 제한 있음. 
+-> 보안하려고 post. 쿼리가 외부로 보옂지ㅣ 않고 쿼리문자 길이에 제한이 없어
+만약 길면 포스트 씀 
+포스트는 폼태그를 써야만 함
+
+다른애들은 갯방식 포스트방식 꺼내는방식 많이 다른데
+서블릿은 서블릿컨테이너가was 대신해줘서 
+갯하든 포스트하든 똑같이씀 
+장점임
+
+포스트방식은
+	request.setCharacterEncoding("UTF-8");
+이거 안써주면 한글 꺠짐 영어는 ㄱㅊ
+
+갯방식은 바디가 없음 해더만잇음
+포스트는 바디에파라미터 들어감 
+
+
+
+
+
+
+
+
+
+
+
+

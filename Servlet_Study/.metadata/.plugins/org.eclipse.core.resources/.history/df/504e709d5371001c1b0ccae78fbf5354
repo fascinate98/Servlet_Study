@@ -1,0 +1,162 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ <%@ page import = "model.vo.*, java.util.ArrayList" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Responsive Navigation Bar</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css">
+	<link rel="stylesheet" href = "<%= request.getContextPath() %>/css/common.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/home.css">
+</head>
+<body>
+	
+<div class="wrapper">
+	<div class="navbar">
+		<div class="inner_navbar">
+				<div class="logo">
+				<a href="#">BL<span>IND</span></a>
+				<%
+				String name = "Guest";
+				boolean islogin = false;
+				MemberVO vo = (MemberVO)session.getAttribute("logininfo") ;
+				if(vo == null){
+					name = "Guest";
+				}else{
+					name = vo.getMem_name();
+					islogin = true;
+				}
+				%>
+				<p><%=name %>님 안녕하세요!</p>
+			</div>
+			<div class="menu">
+				<ul>
+				    <li><a href="#" class="active">Home</a></li>
+				    <li><a href="<%= request.getContextPath() %>/jspsrc/aboutUsView.jsp">About Us</a></li>
+			   	    <li><a href="<%= request.getContextPath() %>/content?action=getalllist">Forum</a></li>
+					<li><a href="<%= request.getContextPath() %>/jspsrc/myPageView.jsp">My Page</a></li>
+					<li>              
+			  <%
+              		if(islogin){%>
+              			<a href="/bbs/memberset?action=logout">Logout</a>
+              <% 	}else{ %>
+              			<a href="<%= request.getContextPath() %>/jspsrc/loginView.jsp">Login</a>
+            	  	
+              <%  }
+              %>
+            	</li>
+				</ul>
+			</div>
+		</div>
+		<div class="hamburger">
+			<i class="fas fa-bars"></i>
+		</div>
+	</div>
+
+	<div class="main_container">
+		<div class="content">
+			<div class="item_wrap">
+				<div class="item">
+					残酷な天使のように<br>
+					자은코쿠나 텐시노 요-니<br>
+					잔혹한 천사인 것 처럼<br><br>
+				</div>
+			</div>
+			<div class="item_wrap">
+				<div class="item">
+					취업 때문에 '잔소리·욕설' 아버지 살해한 아들, 2심서 감형<br>
+					[아시아경제 김형민 기자] 취업 문제로 잔소리하고 욕설을 일삼은 아버지를 흉기로 살해한 아들이 항소심에서 감형됐다. 평소 사회생활과 대인관계에서 스트레스를 받은 사정이 참작됐다.<br>
+					부산고법 울산재판부 형사1부(부장판사 박해빈)는 존속살해 혐의로 재판에 넘겨진 30대 A씨에게 징역 15년이던 원심을 파기하고 징역 13년을 선고했다고 9일 밝혔다<br>
+				</div>
+			</div>
+			<div class="item_wrap">
+					<div class="item">
+					'일자리 정부'라더니… 대졸 취업률은 바닥 [심층기획-‘일자리 정부’ 헛구호]<br>
+					2020년 대졸자 취업률이 65%대로 떨어졌다. 정부가 취업률 통계를 낸 이후 최저치다.
+
+					9일 교육부와 통계청 등에 따르면 2020년 고등교육기관 취업 대상자 48만149명 가운데 취업자는 31만2430명으로 집계됐다.<br> 
+					여기에는 해외취업자와 농림어업 종사자, 개인창작활동 종사자, 1인 창업자, 프리랜서까지 모두 포함됐다. 취업률은 65.1%에 불과했다.<br>
+ 					취업률이 65%대를 기록한 건 2011년 교육과학기술부(현 교육부)가 통계 기준을 ‘직장 건강보험 가입자’에서 ‘행정 데이터베이스(DB)에서 검증된 이’로 전환한 이후 가장 낮은 수준이다.<br>
+
+				</div>
+			</div>
+			<div class="item_wrap">
+						<div class="item">
+					'졸업 후 대기업 취업 보장' 대학가 계약학과 신설 잇따라<br>
+					[이데일리 김의진 기자] 연세대·고려대·한국과학기술원(KAIST)·포항공대 등 국내 주요 대학들이 계약학과 개설에 나서고 있다. 첨단기술 분야에서 전문인력을 확보하려는 기업과 취업률 제고로 우수 인재를 선점하려는 대학이 손잡은 사례다.<br>
+					9일 대학가에 따르면 연세대는 지난해 12월 LG디스플레이와 협약을 맺고 채용조건형 계약학과인 ‘디스플레이융합공학과’를 설립하기로 했다.<br> 
+					연세대는 오는 2023학년도부터 매년 30명씩 신입생을 선발한다. 모든 입학생은 등록금 전액을 지원받고, 졸업 후 LG디스플레이에 취업하는 것도 보장받게 된다.<br>
+				</div>
+			</div>
+			<div class="item_wrap">
+				<div class="item">
+					'일자리 정부'라더니… 대졸 취업률은 바닥 [심층기획-‘일자리 정부’ 헛구호]<br>
+					2020년 대졸자 취업률이 65%대로 떨어졌다. 정부가 취업률 통계를 낸 이후 최저치다.
+
+					9일 교육부와 통계청 등에 따르면 2020년 고등교육기관 취업 대상자 48만149명 가운데 취업자는 31만2430명으로 집계됐다.<br> 
+					여기에는 해외취업자와 농림어업 종사자, 개인창작활동 종사자, 1인 창업자, 프리랜서까지 모두 포함됐다. 취업률은 65.1%에 불과했다.<br>
+ 					취업률이 65%대를 기록한 건 2011년 교육과학기술부(현 교육부)가 통계 기준을 ‘직장 건강보험 가입자’에서 ‘행정 데이터베이스(DB)에서 검증된 이’로 전환한 이후 가장 낮은 수준이다.<br>
+
+				</div>
+			</div>
+			<div class="item_wrap">
+				<div class="item">
+					残酷な天使のように<br>
+					자은코쿠나 텐시노 요-니<br>
+					잔혹한 천사인 것 처럼<br><br>
+				</div>
+			</div>
+			<div class="item_wrap">
+						<div class="item">
+					残酷な天使のように<br>
+					자은코쿠나 텐시노 요-니<br>
+					잔혹한 천사인 것 처럼<br><br>
+				</div>
+			</div>
+			<div class="item_wrap">
+						<div class="item">
+					残酷な天使のように<br>
+					자은코쿠나 텐시노 요-니<br>
+					잔혹한 천사인 것 처럼<br><br>
+				</div>
+			</div>
+			<div class="item_wrap">
+						<div class="item">
+					残酷な天使のように<br>
+					자은코쿠나 텐시노 요-니<br>
+					잔혹한 천사인 것 처럼<br><br>
+				</div>
+			</div>
+			<div class="item_wrap">
+						<div class="item">
+					残酷な天使のように<br>
+					자은코쿠나 텐시노 요-니<br>
+					잔혹한 천사인 것 처럼<br><br>
+				</div>
+			</div>
+			<div class="item_wrap">
+						<div class="item">
+					残酷な天使のように<br>
+					자은코쿠나 텐시노 요-니<br>
+					잔혹한 천사인 것 처럼<br><br>
+				</div>
+			</div>
+			<div class="item_wrap">
+						<div class="item">
+					残酷な天使のように<br>
+					자은코쿠나 텐시노 요-니<br>
+					잔혹한 천사인 것 처럼<br><br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="<%= request.getContextPath() %>/js/main.js"></script>
+
+</body>
+</html>

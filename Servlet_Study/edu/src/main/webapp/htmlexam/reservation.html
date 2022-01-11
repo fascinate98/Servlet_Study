@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.outer{
+	padding-left:50px;
+	padding-right:50px;
+	padding-top:50px;
+	padding-bottom:50px;
+	background-image: url( "../images/제목 없음9.png" );
+	background-repeat:no-repeat;
+	background-size:cover;
+ 	opacity: 0.8;
+	border: 1px solid #ccc;
+	width : 80%;
+	position : relative;
+	left: 50%;
+	transform : translateX(-50%);
+
+}
+
+.title{
+	text-align: center;
+}
+.content {
+	padding-left:30px;
+	position : relative;
+	background-color: rgba( 255, 255, 255, 0.6 )
+}
+.content>input{
+	margin-top:20px;
+}
+
+
+.buttons{
+
+	height:50px;
+	position : relative;
+	text-align: center;
+
+}
+
+</style>
+</head>
+<body>
+	<div class = "outer">
+			<form class =  "inner" method="post" 
+			action="http://localhost:8080/edu/reservation">
+				<div class = "title">
+				<span style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">
+					<h1 style= "color:#ffd4e1; font-family:Malgun Gothic">자연휴양림 예약 서비스</h1>
+				</span>
+					
+					
+			    	<hr>
+				</div>
+			    <div class = "content">
+				    예약자명 : <input name="name"><br>
+					예약암호 : <input type="password" name="pwd"><br>
+					휴양림선택 : 
+					산음 <input type="radio" name="sel" value="산음">
+					중미산 <input type="radio" name="sel" value="중미산">
+					유명산 <input type="radio" name="sel" value="유명산">
+					아세안 <input type="radio" name="sel" value="아세안"> <br>
+					추가요청 : 
+					바베큐 <input type="checkbox" name="req" value="바베큐">
+					수영장 <input type="checkbox" name="req" value="수영장">
+					낚시 <input type="checkbox" name="req" value="낚시">
+					조식 <input type="checkbox" name="req" value="조식"><br>
+					
+					예약날짜: <input type="date" name = "date" style = "margin-bottom : 20px;">
+					
+			    </div>
+			    
+			    <div class = "buttons">
+			    	<hr style = "margin-bottom:30px;">
+			    	<button type="submit">보내기</button>
+			    	<button type="reset">다시 작성하기</button>
+			    </div>
+			</form>
+	</div>
+</body>
+</html>

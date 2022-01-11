@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+
+</style>
+<body>
+<h1>구매하고자 하는 상품을 선택하십시오.</h1>
+
+<hr>
+
+<a class="image" href = "/edu/product?name=apple"><img src = "/edu/images/apple.gif"></a>
+<a class="image" href = "/edu/product?name=banana"><img src = "/edu/images/banana.jpg"></a>
+<a class="image" href = "/edu/product?name=halabong"><img src = "/edu/images/halabong.jpg"></a>
+
+</body>
+</html>
+
+

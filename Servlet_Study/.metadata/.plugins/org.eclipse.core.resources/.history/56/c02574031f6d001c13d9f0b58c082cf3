@@ -1,0 +1,29 @@
+package vo;
+
+public class ProductVO {
+	
+	private int apple;
+	private int banana;
+	private int hanrabong;
+	public int getApple() {
+		return apple;
+	}
+	public void setApple(int apple) {
+		this.apple = apple;
+	}
+	public int getBanana() {
+		return banana;
+	}
+	public void setBanana(int banana) {
+		this.banana = banana;
+	}
+	public int getHanrabong() {
+		return hanrabong;
+	}
+	public void setHanrabong(int hanrabong) {
+		this.hanrabong = hanrabong;
+	}
+	
+	
+	
+}

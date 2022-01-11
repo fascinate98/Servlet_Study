@@ -1,0 +1,48 @@
+var hamburger = document.querySelector(".hamburger");
+var menu = document.querySelector(".menu");
+
+hamburger.addEventListener("click", function(){
+  menu.classList.toggle("active");
+});
+
+$("#three").prop("checked", true);
+$("input:radio[name='number']").prop('checked', true); 
+
+
+var sel = <%=cvo.getCon_star() %>;
+var ele = getElementsByValue('rating');
+console.log("hello");
+
+ function getElementsByValue(value, tag, node) {
+		var values = new Array();
+		if (tag == null)
+			tag = "*";
+		if (node == null)
+			node = document;
+		var search = node.getElementsByTagName(tag);
+		var pat = new RegExp(value, "i");
+		for (var i=0; i<search.length; i++) {
+			if (pat.test(search[i].value))
+				values.push(search[i]);
+		}
+		return values;
+	}
+
+$('.pw').focusout(function () {
+  var pwd1 = document.getElementById('pw1').value;
+  var pwd2 = document.getElementById('pw2').value;
+
+  if ( pwd1 != '' && pwd2 == '' ) {
+      null;
+  } else if (pwd1 != "" || pwd2 != "") {
+      if (pwd1 == pwd2) {
+
+      } else {
+          // 비밀번호 불일치 이벤트 실행
+          alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+          $('#pw2').val('');
+          return false;
+      }
+  }
+});
+

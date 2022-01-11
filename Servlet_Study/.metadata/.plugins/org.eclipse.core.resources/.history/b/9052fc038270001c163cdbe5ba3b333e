@@ -1,0 +1,15 @@
+package model.dao;
+
+import java.util.ArrayList;
+
+import model.vo.ContentVO;
+
+public interface Content {
+	public ArrayList<ContentVO> listAll();
+	public boolean insert(ContentVO vo);
+	public ArrayList<ContentVO> search(String keyword);
+	public ContentVO listOne(int writer);
+	public boolean delete(int writer);
+	public boolean update(ContentVO vo);
+	public boolean updateCnt(int idnum);
+}

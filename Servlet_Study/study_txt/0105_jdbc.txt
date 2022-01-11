@@ -1,0 +1,14 @@
+visitor 테이블을 활용한 방명록 웹 프로그램 작성
+ (1) view
+ visitor View.jsp
+ visitorUpdateView.jsp
+
+2 controller
+controller.VisitorDBservlet2.java
+Get-방명록 삭제, 전체리스트 추출, 원하는 글 한개 추출
+Post-방명록 작성, 수정, 
+
+3 model
+vo.VisitorVO
+dao.VisitorDAO
+dao.MySQL
