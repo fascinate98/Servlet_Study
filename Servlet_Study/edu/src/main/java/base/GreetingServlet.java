@@ -26,10 +26,10 @@ public class GreetingServlet extends HttpServlet {
 	      String name = request.getParameter("guestname");
 	      
 	      if(name == null || name.length() == 0) {
-	    	  name = "¼Õ´Ô";
+	    	  name = "ï¿½Õ´ï¿½";
 	      }
 	      
-	      out.print("<h2>" + name +"´Ô!  ¹Ý°¡¿ö¿ä.. ¿À´ÃÀº "+ a + "¿äÀÏÀÔ´Ï´Ù!! </h2>");
+	      out.print("<h2>" + name +"ï¿½ï¿½!  ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "+ a + "ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½!! </h2>");
 
 	  
 	      out.close();

@@ -9,11 +9,9 @@
     <meta charset="utf-8">
     <title></title>
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css">
 	<link rel="stylesheet" href = "<%= request.getContextPath() %>/css/common.css">
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/login.css">
- 
   </head>
   <body>
 
